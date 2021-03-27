@@ -6,6 +6,7 @@ from core.serializers import (DriverSerializer, PassengerSerializer,
 class DriverViewSet(viewsets.ModelViewSet):
     queryset = Driver.objects.all()
     serializer_class = DriverSerializer
+    filterset_fields = ('status',)
 
 class PassengerViewSet(viewsets.ModelViewSet):
     queryset = Passenger.objects.all()
@@ -14,3 +15,4 @@ class PassengerViewSet(viewsets.ModelViewSet):
 class TripViewSet(viewsets.ModelViewSet):
     queryset = Trip.objects.all()
     serializer_class = TripSerializer
+    filterset_fields = ('status',)
