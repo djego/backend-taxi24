@@ -16,8 +16,9 @@ class PassengerSerializer(DynamicFieldsMixin, serializers.ModelSerializer):
 class TripSerializer(DynamicFieldsMixin, serializers.ModelSerializer):
     driver = DriverSerializer()
     passenger = PassengerSerializer()
-    
+
     class Meta:
         model = Trip
-        fields = ('id', 'source', 'destination', 'cost', 'distance', 'status',
-            'driver', 'passenger')
+        fields = ('id', 'source_lat', 'source_lon', 'destination_lat',
+            'destination_lon', 'cost', 'distance', 'status', 'driver',
+            'passenger')

@@ -48,8 +48,10 @@ class Trip(BaseModel):
         (CANCEL, 'Cancel'),
         (WAIT, 'Wait'),
     )
-    source = models.JSONField()
-    destination = models.JSONField(null=True, blank=True)
+    source_lat = models.FloatField(null=True, blank=True)
+    source_lon = models.FloatField(null=True, blank=True)
+    destination_lat = models.FloatField(null=True, blank=True)
+    destination_lon = models.FloatField(null=True, blank=True)
     cost = models.FloatField(default=0.0, blank=True)
     distance = models.IntegerField(default=0, blank=True)
     status = models.CharField(max_length=2, choices=STATUS, default=WAIT,
