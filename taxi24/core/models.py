@@ -40,13 +40,9 @@ class Passenger(BaseModel):
 class Trip(BaseModel):
     ACTIVE = 'A'
     END = 'E'
-    CANCEL = 'C'
-    WAIT = 'W'
     STATUS = (
         (ACTIVE, 'Active'),
         (END, 'End'),
-        (CANCEL, 'Cancel'),
-        (WAIT, 'Wait'),
     )
     source_lat = models.FloatField(null=True, blank=True)
     source_lon = models.FloatField(null=True, blank=True)
@@ -54,7 +50,7 @@ class Trip(BaseModel):
     destination_lon = models.FloatField(null=True, blank=True)
     cost = models.FloatField(default=0.0, blank=True)
     distance = models.IntegerField(default=0, blank=True)
-    status = models.CharField(max_length=2, choices=STATUS, default=WAIT,
+    status = models.CharField(max_length=2, choices=STATUS, default=ACTIVE,
         blank=True)
     driver = models.ForeignKey('Driver', on_delete=models.CASCADE,
         related_name="trips")
@@ -65,13 +61,20 @@ class Trip(BaseModel):
         return f"{self.driver} [{self.passenger}]"
 
 class Bill(BaseModel):
-    number = models.CharField(max_length=50)
-    driver = models.CharField(max_length=255)
-    passenger = models.CharField(max_length=255)
-    cost = models.FloatField(default=0.0, blank=True)
-    distance = models.IntegerField(default=0, blank=True)
+    number = models.IntegerField(editable=False)
+    driver = models.CharField(max_length=255, blank=True, null=True)
+    passenger = models.CharField(max_length=255, blank=True, null=True)
+    cost = models.FloatField(default=0.0, blank=True, null=True)
+    distance = models.IntegerField(default=0, blank=True, null=True)
     trip = models.OneToOneField('Trip', on_delete=models.CASCADE,
         related_name="bill")
     
+    def save(self, *args, **kwargs):
+        self.driver = self.trip.driver.name
+        self.passenger = self.trip.passenger.name
+        self.cost = self.trip.cost
+        self.distance = self.trip.distance
+        super().save(*args, **kwargs)
+    
     def __str__(self):
-        return self.number
+        return f"Factura: {self.number}"
