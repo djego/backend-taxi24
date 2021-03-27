@@ -13,6 +13,6 @@ class PassengerViewSet(viewsets.ModelViewSet):
     serializer_class = PassengerSerializer
 
 class TripViewSet(viewsets.ModelViewSet):
-    queryset = Trip.objects.all()
+    queryset = Trip.objects.all().select_related('passenger', 'driver')
     serializer_class = TripSerializer
     filterset_fields = ('status',)
