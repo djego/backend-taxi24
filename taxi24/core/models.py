@@ -49,9 +49,9 @@ class Trip(BaseModel):
         (WAIT, 'Wait'),
     )
     source = models.JSONField()
-    destination = models.JSONField(null=True)
-    cost = models.FloatField(default=0.0)
-    distance = models.IntegerField(default=0)
+    destination = models.JSONField(null=True, blank=True)
+    cost = models.FloatField(default=0.0, blank=True)
+    distance = models.IntegerField(default=0, blank=True)
     status = models.CharField(max_length=2, choices=STATUS, default=WAIT,
         blank=True)
     driver = models.ForeignKey('Driver', on_delete=models.CASCADE,
@@ -66,8 +66,8 @@ class Bill(BaseModel):
     number = models.CharField(max_length=50)
     driver = models.CharField(max_length=255)
     passenger = models.CharField(max_length=255)
-    cost = models.FloatField(default=0.0)
-    distance = models.IntegerField(default=0)
+    cost = models.FloatField(default=0.0, blank=True)
+    distance = models.IntegerField(default=0, blank=True)
     trip = models.OneToOneField('Trip', on_delete=models.CASCADE,
         related_name="bill")
     
