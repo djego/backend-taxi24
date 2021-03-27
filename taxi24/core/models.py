@@ -1,6 +1,7 @@
 from math import ceil
 from uuid import uuid4
 from django.db import models
+from django.db.models.expressions import RawSQL
 from core import services
 
 class BaseModel(models.Model):
@@ -10,6 +11,25 @@ class BaseModel(models.Model):
 
     class Meta:
         abstract = True
+
+class DriverManager(models.Manager):
+    def filter_distance(self, lat, lon, distance):
+        return self.order_by_distance(lat, lon)\
+            .filter(distance__lte=float(distance))
+    
+    def order_by_distance(self, lat, lon):
+        sql = """
+        SELECT asin(
+            sqrt(
+                sin(radians(%s-lat)/2) * sin(radians(%s-lat)/2) +
+                sin(radians(%s-lon)/2) * sin(radians(%s-lon)/2) *
+                cos(radians(lat)) *
+                cos(radians(lon))
+            )
+        ) * 2 * 6371 
+        """
+        return self.annotate(distance=RawSQL(sql, (lat, lat, lon, lon)))\
+            .order_by('distance')
 
 class Driver(BaseModel):
     AVAILABLE = 'A'
@@ -27,6 +47,8 @@ class Driver(BaseModel):
     lon = models.FloatField()
     status = models.CharField(max_length=2, choices=STATUS, default=AVAILABLE,
         blank=True)
+
+    objects = DriverManager()
 
     def __str__(self):
         return f"{self.name}({self.dni})"
