@@ -1,5 +1,7 @@
+from math import ceil
 from uuid import uuid4
 from django.db import models
+from core import services
 
 class BaseModel(models.Model):
     id = models.UUIDField(primary_key=True, editable=False, default=uuid4)
@@ -48,14 +50,25 @@ class Trip(BaseModel):
     source_lon = models.FloatField(null=True, blank=True)
     destination_lat = models.FloatField(null=True, blank=True)
     destination_lon = models.FloatField(null=True, blank=True)
-    cost = models.FloatField(default=0.0, blank=True)
-    distance = models.IntegerField(default=0, blank=True)
+    cost = models.IntegerField(default=0, blank=True)
+    distance = models.FloatField(default=0.0, blank=True)
     status = models.CharField(max_length=2, choices=STATUS, default=ACTIVE,
         blank=True)
     driver = models.ForeignKey('Driver', on_delete=models.CASCADE,
         related_name="trips")
     passenger = models.ForeignKey('Passenger', on_delete=models.CASCADE,
         related_name="trips")
+
+    def save(self, *args, **kwargs):
+        if self.source_lat and self.source_lon and self.destination_lat \
+                and self.destination_lon:
+            self.distance = services.calculate_distance_haversine(
+                self.source_lat,
+                self.source_lon,
+                self.destination_lat,
+                self.destination_lon)
+            self.cost = ceil(self.distance)
+        super().save(args, kwargs)
 
     def __str__(self):
         return f"{self.driver} [{self.passenger}]"
