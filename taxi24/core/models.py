@@ -99,8 +99,8 @@ class Bill(BaseModel):
     number = models.IntegerField(editable=False)
     driver = models.CharField(max_length=255, blank=True, null=True)
     passenger = models.CharField(max_length=255, blank=True, null=True)
-    cost = models.FloatField(default=0.0, blank=True, null=True)
-    distance = models.IntegerField(default=0, blank=True, null=True)
+    cost = models.IntegerField(default=0, blank=True, null=True)
+    distance = models.FloatField(default=0.0, blank=True, null=True)
     trip = models.OneToOneField('Trip', on_delete=models.CASCADE,
         related_name="bill")
     
