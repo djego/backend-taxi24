@@ -1,3 +1,7 @@
 from django.contrib import admin
+from core.models import Driver, Passenger, Trip, Bill
 
-# Register your models here.
+admin.site.register(Driver)
+admin.site.register(Passenger)
+admin.site.register(Trip)
+admin.site.register(Bill)
