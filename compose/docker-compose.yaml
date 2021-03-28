@@ -6,25 +6,33 @@ services:
       dockerfile: ../docker/Dockerfile
     volumes:
       - ../taxi24:/code
+    networks:
+      - taxi24
     ports:
       - "8000:8000"
     env_file:
       - ../taxi24/.env
     depends_on:
-      - db
+      - database
   pg_admin:
     image: dpage/pgadmin4
     environment:
       PGADMIN_DEFAULT_EMAIL: unrecano@recano.club
       PGADMIN_DEFAULT_PASSWORD: secret
+    networks:
+      - taxi24
     ports:
       - "8080:80"
     depends_on:
-      - db
-  db:
+      - database
+  database:
     image: postgres:13
     ports:
       - "5432"
+    networks:
+      - taxi24
     environment:
       POSTGRES_PASSWORD: secret
-      POSTGRES_DB: taxi24db
+      POSTGRES_DB: taxi24_db
+networks:
+  taxi24:
