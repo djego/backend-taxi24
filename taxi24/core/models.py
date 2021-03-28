@@ -1,3 +1,6 @@
+"""
+Models for taxi24 api.
+"""
 from math import ceil
 from uuid import uuid4
 from django.db import models
@@ -5,6 +8,9 @@ from django.db.models.expressions import RawSQL
 from core import services
 
 class BaseModel(models.Model):
+    """
+    BaseModel with basic fields.
+    """
     id = models.UUIDField(primary_key=True, editable=False, default=uuid4)
     created = models.DateTimeField(auto_now_add=True)
     updated = models.DateTimeField(auto_now=True)
@@ -13,10 +19,13 @@ class BaseModel(models.Model):
         abstract = True
 
 class DriverManager(models.Manager):
+    """
+    Manager for custom queries.
+    """
     def filter_distance(self, lat, lon, distance):
         return self.order_by_distance(lat, lon)\
             .filter(distance__lte=float(distance))
-    
+
     def order_by_distance(self, lat, lon):
         sql = """
         SELECT asin(
@@ -32,6 +41,9 @@ class DriverManager(models.Manager):
             .order_by('distance')
 
 class Driver(BaseModel):
+    """
+    Driver Model for table core_driver.
+    """
     AVAILABLE = 'A'
     UNAVAILABLE = 'U'
     STATUS = (
@@ -54,6 +66,9 @@ class Driver(BaseModel):
         return f"{self.name}({self.dni})"
 
 class Passenger(BaseModel):
+    """
+    Passenger Model for table core_passenger.
+    """
     name = models.CharField(max_length=255)
     lat = models.FloatField()
     lon = models.FloatField()
@@ -62,6 +77,9 @@ class Passenger(BaseModel):
         return self.name
 
 class Trip(BaseModel):
+    """
+    Trip model for table core_trip.
+    """
     ACTIVE = 'A'
     END = 'E'
     STATUS = (
@@ -82,6 +100,9 @@ class Trip(BaseModel):
         related_name="trips")
 
     def save(self, *args, **kwargs):
+        """
+        Override save and set distance and cost.
+        """
         if self.source_lat and self.source_lon and self.destination_lat \
                 and self.destination_lon:
             self.distance = services.calculate_haversine_distance(
@@ -96,6 +117,9 @@ class Trip(BaseModel):
         return f"{self.driver} [{self.passenger}]"
 
 class Bill(BaseModel):
+    """
+    Bill model for table core_bill.
+    """
     number = models.IntegerField(editable=False)
     driver = models.CharField(max_length=255, blank=True, null=True)
     passenger = models.CharField(max_length=255, blank=True, null=True)
@@ -103,13 +127,16 @@ class Bill(BaseModel):
     distance = models.FloatField(default=0.0, blank=True, null=True)
     trip = models.OneToOneField('Trip', on_delete=models.CASCADE,
         related_name="bill")
-    
+
     def save(self, *args, **kwargs):
+        """
+        Override save and set values from trip.
+        """
         self.driver = self.trip.driver.name
         self.passenger = self.trip.passenger.name
         self.cost = self.trip.cost
         self.distance = self.trip.distance
         super().save(*args, **kwargs)
-    
+
     def __str__(self):
         return f"Factura: {self.number}"

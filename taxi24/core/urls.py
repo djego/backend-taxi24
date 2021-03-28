@@ -1,3 +1,6 @@
+"""
+Urls for core app.
+"""
 from rest_framework import routers
 from core.views import DriverViewSet, PassengerViewSet, TripViewSet
 

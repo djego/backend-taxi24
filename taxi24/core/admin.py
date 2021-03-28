@@ -1,3 +1,6 @@
+"""
+Config admin site.
+"""
 from django.contrib import admin
 from core.models import Driver, Passenger, Trip, Bill
 

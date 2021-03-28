@@ -1,9 +1,15 @@
+"""
+Signals for taxi24 models.
+"""
 from django.db.models.signals import post_save
 from django.dispatch import receiver
 from core.models import Bill, Trip, Driver, Passenger
 
 @receiver(post_save, sender=Trip)
 def create_trip(sender, instance, created, **kwargs):
+    """
+    Update status for driver when trip is created.
+    """
     if created:
         # Change status for driver.
         Driver.objects.filter(id=instance.driver_id)\
@@ -11,6 +17,9 @@ def create_trip(sender, instance, created, **kwargs):
 
 @receiver(post_save, sender=Trip)
 def ending_trip(sender, instance, **kwargs):
+    """
+    Actions when trip was ended.
+    """
     if instance.status == Trip.END:
         # Change status for driver.
         Driver.objects.filter(id=instance.driver_id)\
@@ -18,7 +27,7 @@ def ending_trip(sender, instance, **kwargs):
         # Create bill.
         try:
             number = Bill.objects.latest('created').number + 1
-        except:
+        except Exception as e:
             number = 1
         params = {
             "number": number,
