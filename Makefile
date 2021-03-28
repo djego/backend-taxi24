@@ -13,3 +13,6 @@ bash:
 
 test:
 	docker-compose -f compose/docker-compose.yaml run api python manage.py test
+
+lint:
+	docker-compose -f compose/docker-compose.yaml run api pylint taxi24 core --ignore=migrations --disable=duplicate-code
