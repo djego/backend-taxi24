@@ -3,9 +3,9 @@ compose = docker-compose -f compose/docker-compose.yaml
 init:
 	cp taxi24/env.example taxi24/.env
 	$(compose) build
-	$(compose) run api python manage.py makemigrations
-	$(compose) run api python manage.py migrate
-	$(compose) run api python manage.py loaddata core users
+	$(compose) run api bash -c "python manage.py makemigrations \
+		&& python manage.py migrate \
+		&& python manage.py loaddata core users"
 
 serve:
 	$(compose) up
@@ -20,8 +20,7 @@ lint:
 	$(compose) run api pylint taxi24 core --ignore=migrations --disable=duplicate-code
 
 coverage:
-	$(compose) run api coverage run --source='.' manage.py test
-	$(compose) run api coverage report
+	$(compose) run api bash -c "coverage run --source='.' manage.py test && coverage report"
 
 destroy:
 	$(compose) down
