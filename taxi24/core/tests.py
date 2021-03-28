@@ -123,10 +123,13 @@ class TripViewSet(APITestCase):
         trip = Trip.objects.first()
         response = self.client.put(f'/trips/{trip.id}/ending/')
         serializer = TripSerializer(trip)
+        bill = Bill.objects.latest('created')
         self.assertEqual(response.status_code, status.HTTP_200_OK)
         self.assertEqual(response.data.get('id'), serializer.data.get('id'))
         self.assertEqual(response.data.get('status'), Trip.END)
-        self.assertEqual(trip.driver.status, Driver.AVAILABLE)   
+        self.assertEqual(trip.driver.status, Driver.AVAILABLE)
+        self.assertEqual(trip.id, bill.trip_id)
+
 
     def test_list_active_trip(self):
         response = self.client.get('/trips/', {'status': Trip.ACTIVE})
