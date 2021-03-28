@@ -129,7 +129,10 @@ class TripViewSet(APITestCase):
         self.assertEqual(response.data.get('status'), Trip.END)
         self.assertEqual(trip.driver.status, Driver.AVAILABLE)
         self.assertEqual(trip.id, bill.trip_id)
-
+        self.assertEqual(trip.destination_lat, trip.driver.lat)
+        self.assertEqual(trip.destination_lon, trip.driver.lon)
+        self.assertEqual(trip.destination_lat, trip.passenger.lat)
+        self.assertEqual(trip.destination_lon, trip.passenger.lon)
 
     def test_list_active_trip(self):
         response = self.client.get('/trips/', {'status': Trip.ACTIVE})

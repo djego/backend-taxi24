@@ -10,3 +10,6 @@ serve:
 
 bash:
 	docker-compose -f compose/docker-compose.yaml run api bash
+
+test:
+	docker-compose -f compose/docker-compose.yaml run api python manage.py test
