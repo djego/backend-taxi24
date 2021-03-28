@@ -38,7 +38,7 @@ class Driver(BaseModel):
         (AVAILABLE, 'Available'),
         (UNAVAILABLE, 'Unavailable'),
     )
-    dni = models.CharField(max_length=8)
+    dni = models.CharField(max_length=8, unique=True)
     name = models.CharField(max_length=255)
     manufacturer = models.CharField(max_length=255)
     model = models.CharField(max_length=255)

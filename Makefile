@@ -6,3 +6,6 @@ init:
 
 serve:
 	docker-compose -f compose/docker-compose.yaml up
+
+bash:
+	docker-compose -f compose/docker-compose.yaml run api bash

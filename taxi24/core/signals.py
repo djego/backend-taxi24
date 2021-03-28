@@ -13,8 +13,12 @@ def ending_trip(sender, instance, **kwargs):
     if instance.status == Trip.END:
         Driver.objects.filter(id=instance.driver_id)\
             .update(status=Driver.AVAILABLE)
+        try:
+            number = Bill.objects.latest('created').number + 1
+        except:
+            number = 1
         params = {
-            "number": Bill.objects.latest('created').number + 1,
+            "number": number,
             "trip": instance,
         }
         Bill.objects.create(**params)

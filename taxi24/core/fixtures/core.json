@@ -1,0 +1,152 @@
+[
+{
+  "model": "core.driver",
+  "pk": "33a304a5-9e62-4eff-8cb9-9ed349a617a4",
+  "fields": {
+    "created": "2021-03-28T04:04:59.072Z",
+    "updated": "2021-03-28T04:04:59.072Z",
+    "dni": "34567778",
+    "name": "Rogelio Castro",
+    "manufacturer": "Toyota",
+    "model": "Corolla",
+    "plate": "POI987",
+    "lat": -6.887117,
+    "lon": -79.825315,
+    "status": "A"
+  }
+},
+{
+  "model": "core.driver",
+  "pk": "a4769472-3d1c-4d23-8cce-0c5b8434a3ef",
+  "fields": {
+    "created": "2021-03-28T03:58:19.755Z",
+    "updated": "2021-03-28T03:58:19.755Z",
+    "dni": "12345678",
+    "name": "Juan Perez",
+    "manufacturer": "Toyota",
+    "model": "Yaris",
+    "plate": "ABC123",
+    "lat": -6.862689,
+    "lon": -79.818674,
+    "status": "A"
+  }
+},
+{
+  "model": "core.driver",
+  "pk": "b2daacbe-5ac7-4fa7-9e00-44c8cce4b7e6",
+  "fields": {
+    "created": "2021-03-28T03:59:45.908Z",
+    "updated": "2021-03-28T03:59:45.908Z",
+    "dni": "98765432",
+    "name": "Jose Fernandez",
+    "manufacturer": "Hyundai",
+    "model": "Elantra",
+    "plate": "QWE123",
+    "lat": -6.868094,
+    "lon": -79.817301,
+    "status": "A"
+  }
+},
+{
+  "model": "core.driver",
+  "pk": "c87bdc49-22da-4e0f-a10a-af77d8dfe1c6",
+  "fields": {
+    "created": "2021-03-28T04:06:21.348Z",
+    "updated": "2021-03-28T04:06:21.348Z",
+    "dni": "01234876",
+    "name": "Juana Rojas",
+    "manufacturer": "Kia",
+    "model": "Picanto",
+    "plate": "MBN567",
+    "lat": -6.925367,
+    "lon": -79.866323,
+    "status": "A"
+  }
+},
+{
+  "model": "core.driver",
+  "pk": "f1e21257-1d87-44ff-aaf6-fcc4f7a8ff4d",
+  "fields": {
+    "created": "2021-03-28T04:01:21.938Z",
+    "updated": "2021-03-28T04:01:21.938Z",
+    "dni": "34456789",
+    "name": "Maria Diaz",
+    "manufacturer": "Hyundai",
+    "model": "Accent",
+    "plate": "ASD123",
+    "lat": -6.86476,
+    "lon": -79.818792,
+    "status": "A"
+  }
+},
+{
+  "model": "core.passenger",
+  "pk": "c249c96c-e3c1-46d4-a28a-7344366678cb",
+  "fields": {
+    "created": "2021-03-28T04:07:38.881Z",
+    "updated": "2021-03-28T04:07:38.881Z",
+    "name": "Diana Vizcardo",
+    "lat": -6.927071,
+    "lon": -79.868941
+  }
+},
+{
+  "model": "core.passenger",
+  "pk": "edf8f2d0-707e-44b7-a780-35637bd5f311",
+  "fields": {
+    "created": "2021-03-28T04:09:02.537Z",
+    "updated": "2021-03-28T04:09:02.537Z",
+    "name": "Sonia Mori",
+    "lat": -6.864522,
+    "lon": -79.819062
+  }
+},
+{
+  "model": "core.trip",
+  "pk": "e266bca5-316a-49ef-b1a7-892bc738b458",
+  "fields": {
+    "created": "2021-03-28T04:17:53.969Z",
+    "updated": "2021-03-28T04:23:34.456Z",
+    "source_lat": -6.864522,
+    "source_lon": -79.819062,
+    "destination_lat": -6.927071,
+    "destination_lon": -79.868941,
+    "cost": 9,
+    "distance": 8.305284029241315,
+    "status": "A",
+    "driver": "f1e21257-1d87-44ff-aaf6-fcc4f7a8ff4d",
+    "passenger": "edf8f2d0-707e-44b7-a780-35637bd5f311"
+  }
+},
+{
+  "model": "core.trip",
+  "pk": "e2bfe188-36b9-446c-b261-514c4a03434d",
+  "fields": {
+    "created": "2021-03-28T04:20:11.803Z",
+    "updated": "2021-03-28T04:23:56.187Z",
+    "source_lat": -6.927071,
+    "source_lon": -79.868941,
+    "destination_lat": -6.877541,
+    "destination_lon": -79.872396,
+    "cost": 6,
+    "distance": 5.518087889151662,
+    "status": "E",
+    "driver": "c87bdc49-22da-4e0f-a10a-af77d8dfe1c6",
+    "passenger": "c249c96c-e3c1-46d4-a28a-7344366678cb"
+  }
+},
+{
+  "model": "core.bill",
+  "pk": "df0004ec-9257-41c7-97c6-e9321402c5c3",
+  "fields": {
+    "created": "2021-03-28T04:23:56.212Z",
+    "updated": "2021-03-28T04:23:56.212Z",
+    "number": 1,
+    "driver": "Juana Rojas",
+    "passenger": "Diana Vizcardo",
+    "cost": 6,
+    "distance": 5.518087889151662,
+    "trip": "e2bfe188-36b9-446c-b261-514c4a03434d"
+  }
+}
+]
