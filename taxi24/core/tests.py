@@ -57,7 +57,6 @@ class DriverTestCase(APITestCase):
         serializer = DriverSerializer(drivers, many=True)
         self.assertEqual(response.status_code, status.HTTP_200_OK)
         self.assertEqual(response.data, serializer.data)
-        self.assertEqual(len(response.data), 4)
     
     def test_get_one_driver(self):
         driver = Driver.objects.first()
@@ -89,8 +88,9 @@ class PassengerTestCase(APITestCase):
         passenger = Passenger.objects.first()
         response = self.client.get(
             f'/passengers/{passenger.id}/closest_driver/')
-        drivers = Driver.objects.filter_distance(
-            passenger.lat, passenger.lon, distance)
+        drivers = Driver.objects\
+            .filter_distance(passenger.lat, passenger.lon, distance)\
+            .filter(status=Driver.AVAILABLE)
         serializer = DriverSerializer(drivers, many=True)
         self.assertEqual(response.status_code, status.HTTP_200_OK)
         self.assertEqual(response.data, serializer.data)

@@ -3,16 +3,16 @@
   "model": "auth.user",
   "pk": 1,
   "fields": {
-    "password": "pbkdf2_sha256$216000$BvDyLhUD9Zz0$y3Be8zdISTS2b/z6YX0Mc4W4V/Ued5QdXzva2TFCSX8=",
-    "last_login": "2021-03-28T03:55:32.510Z",
+    "password": "pbkdf2_sha256$216000$q44xnhSdhavF$eCE/PCb9HLBknUfV6eyeMiHdl1d374xoq2S8W2lHhVE=",
+    "last_login": null,
     "is_superuser": true,
     "username": "root",
     "first_name": "",
     "last_name": "",
-    "email": "root@taxi24.com",
+    "email": "root@taxi24.pe",
     "is_staff": true,
     "is_active": true,
-    "date_joined": "2021-03-28T03:55:17.736Z",
+    "date_joined": "2021-03-28T07:10:50.302Z",
     "groups": [],
     "user_permissions": []
   }
