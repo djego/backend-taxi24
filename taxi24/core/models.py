@@ -84,7 +84,7 @@ class Trip(BaseModel):
     def save(self, *args, **kwargs):
         if self.source_lat and self.source_lon and self.destination_lat \
                 and self.destination_lon:
-            self.distance = services.calculate_distance_haversine(
+            self.distance = services.calculate_haversine_distance(
                 self.source_lat,
                 self.source_lon,
                 self.destination_lat,

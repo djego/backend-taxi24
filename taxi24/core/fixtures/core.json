@@ -68,7 +68,7 @@
   "pk": "f1e21257-1d87-44ff-aaf6-fcc4f7a8ff4d",
   "fields": {
     "created": "2021-03-28T04:01:21.938Z",
-    "updated": "2021-03-28T04:01:21.938Z",
+    "updated": "2021-03-28T04:50:46.744Z",
     "dni": "34456789",
     "name": "Maria Diaz",
     "manufacturer": "Hyundai",
@@ -76,7 +76,7 @@
     "plate": "ASD123",
     "lat": -6.86476,
     "lon": -79.818792,
-    "status": "A"
+    "status": "U"
   }
 },
 {
@@ -133,20 +133,6 @@
     "status": "E",
     "driver": "c87bdc49-22da-4e0f-a10a-af77d8dfe1c6",
     "passenger": "c249c96c-e3c1-46d4-a28a-7344366678cb"
-  }
-},
-{
-  "model": "core.bill",
-  "pk": "df0004ec-9257-41c7-97c6-e9321402c5c3",
-  "fields": {
-    "created": "2021-03-28T04:23:56.212Z",
-    "updated": "2021-03-28T04:23:56.212Z",
-    "number": 1,
-    "driver": "Juana Rojas",
-    "passenger": "Diana Vizcardo",
-    "cost": 6,
-    "distance": 5.518087889151662,
-    "trip": "e2bfe188-36b9-446c-b261-514c4a03434d"
   }
 }
 ]

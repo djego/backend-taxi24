@@ -1,6 +1,6 @@
 from math import sin, cos, sqrt, atan2, radians, ceil
 
-def calculate_distance_haversine(source_lat, source_lon, destination_lat,
+def calculate_haversine_distance(source_lat, source_lon, destination_lat,
     destination_lon):
     
     R = 6373.0
