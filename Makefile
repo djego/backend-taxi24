@@ -3,9 +3,12 @@ compose = docker-compose -f compose/docker-compose.yaml
 init:
 	cp taxi24/env.example taxi24/.env
 	$(compose) build
+	make migrate
+	$(compose) run api python manage.py loaddata core users
+
+migrate:
 	$(compose) run api bash -c "python manage.py makemigrations \
-		&& python manage.py migrate \
-		&& python manage.py loaddata core users"
+		&& python manage.py migrate"
 
 serve:
 	$(compose) up

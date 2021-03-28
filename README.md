@@ -41,6 +41,9 @@ Usa coverage para revisar cuanto código está cubierto por las pruebas.
 7. `make destroy`:
 Destruye contenedores creados.
 
+8. `make migrate`:
+Crea y aplica los cambios de las migraciones del proyecto.
+
 ## Endpoints
 
 Cada endpoint puede hacer uso de un filtro `query` para obtener solo aquellos campos requeridos, ejemplo: `http://localhost:8000/drivers/?query={id,name}`
